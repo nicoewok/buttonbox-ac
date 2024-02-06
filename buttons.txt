@@ -1,0 +1,10 @@
+Total: 5 on-off-on, 3 buttons
+
+- on-off-on ABS
+- on-off-on TC
+- on-off-on Engine brake
+- on-off-on Brake balance
+- button lights
+- button change camera
+- on-off-on wipers
+- button hazard lights
