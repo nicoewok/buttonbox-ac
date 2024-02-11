@@ -1,7 +1,7 @@
 #include <Joystick.h>
 
 //Buttons
-#define button1 15
+#define button1 4
 #define button2 9
 #define switcher 10
 
@@ -16,41 +16,19 @@ Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_GAMEPAD,
 void setup() {
   // Initialize Button Pins
   pinMode(button1, INPUT_PULLUP);
-  pinMode(button2, INPUT_PULLUP); 
-  pinMode(switcher, INPUT_PULLUP); 
   Joystick.begin(false);
 }
 
 
 void loop() {
   //check if up
-  if (digitalRead(switcher) == LOW) {
-    if (digitalRead(button1) == LOW) {
-      Joystick.pressButton(0);
-    } else if (digitalRead(button2) == LOW) {
-      Joystick.pressButton(1);
-    }
-  } else {
-    if (digitalRead(button1) == LOW) {
-      Joystick.pressButton(2);
-    } else if (digitalRead(button2) == LOW) {
-      Joystick.pressButton(3);
-    }
-
-  }
 
   Joystick.sendState();//send state 1st before we clear the button states
   ClearButtons();
   
-  
-  Serial.print("switcher state:");
-  Serial.println(digitalRead(switcher));
 
   Serial.print("button1 state:");
   Serial.println(digitalRead(button1));
-
-  Serial.print("button2 state:");
-  Serial.println(digitalRead(button2));
 
   delay(1000);
 }
