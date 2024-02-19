@@ -1,14 +1,14 @@
 #include <Joystick.h>
 
 //Defining row/column pins on your board
-#define ROW1 1
-#define ROW2 1
-#define ROW3 1
-#define COL1 1
-#define COL2 1
-#define COL3 1
-#define COL4 1
-#define SPIN 1
+#define ROW1 15
+#define ROW2 14
+#define ROW3 16
+#define COL1 6
+#define COL2 5
+#define COL3 7
+#define COL4 4
+#define COL5 8
 
 
 Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_GAMEPAD,
@@ -20,17 +20,18 @@ Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_GAMEPAD,
 
 void setup() {
   //Initialize pins
-  pinMode(ROW1, INPUT_PULLUP);
-  pinMode(ROW2, INPUT_PULLUP);
-  pinMode(ROW3, INPUT_PULLUP);
-  pinMode(COL1, INPUT_PULLUP);
-  pinMode(COL2, INPUT_PULLUP);
-  pinMode(COL3, INPUT_PULLUP);
-  pinMode(COL4, INPUT_PULLUP);
-  pinMode(SPIN, INPUT_PULLUP);
-  Joystick.begin(false);
+  for (int i = 14; i < 17; i++) {
+    pinMode(i, OUTPUT);
+    digitalWrite(i,HIGH);
+  }
+  for (int i = 5; i < 10; i++) {
+    pinMode(i, INPUT_PULLUP);
+  }
+  Joystick.begin();
 }
 
+int rows[] = {ROW1,ROW2,ROW3};
+int cols[] = {COL1, COL2, COL3, COL4, COL5 };
 
 void loop() {
   /*Buttons are in following order according to wiring diagramm:
@@ -38,6 +39,24 @@ void loop() {
      0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12
   */
   //Row-wise checking
+  for (int i = 0; i < 50; i++)
+    Serial.println();
+  for (int i = 14; i < 17; i++) {
+    digitalWrite(i,LOW);
+    for (int j = 5; j < 10; j++) {
+      Serial.print("row:"); Serial.print(i); Serial.print(" col:");Serial.print(j); Serial.print(digitalRead(j)); 
+      if (digitalRead(j) == LOW) {
+        Serial.print("pressed");
+        //Jostick.pressButton(btns[i][j]);
+      }
+      Serial.println();
+    }
+    digitalWrite(i,HIGH);
+  }
+/*
+
+
+  }
   if (digitalRead(ROW1) == LOW) {
     if (digitalRead(COL1) == LOW) {
       Joystick.pressButton(0);
@@ -78,11 +97,22 @@ void loop() {
     }
   }
 
+  Serial.print("ROW1: "); Serial.println(digitalRead(ROW1));
+  Serial.print("ROW2: "); Serial.println(digitalRead(ROW2));
+  Serial.print("ROW3: "); Serial.println(digitalRead(ROW3));
+  Serial.print("COL1: "); Serial.println(digitalRead(COL1));
+  Serial.print("COL2: "); Serial.println(digitalRead(COL2));
+  Serial.print("COL3: "); Serial.println(digitalRead(COL3));
+  Serial.print("COL4: "); Serial.println(digitalRead(COL4));
+  Serial.print("SPIN: "); Serial.println(digitalRead(SPIN));
+  Serial.print("\n\n\n");
+*/
+
   //send state then clear buttons again
   Joystick.sendState();
   ClearButtons();
 
-  delay(1000);
+  delay(100);
 }
 
 void ClearButtons() {
