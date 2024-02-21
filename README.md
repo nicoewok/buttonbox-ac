@@ -16,6 +16,7 @@ DIY button box used for Assetto Corsa
 5. Add [Joystick library](https://github.com/MHeironimus/ArduinoJoystickLibrary) and the ```Keypad library``` (Sketch->Include library->Manage libraries->Keypad created by Mark Stanley)
 6. Upload the [code](/arduino-code/arduino-code.ino) to your Arduino Micro
 7. In Assetto Corsa you should now see the Arduino Micro in the settings for binding inputs
+8. (Optional) If you want to rename your board (I named mine *Button Box*) you can go to ```AppData/Local/Arduino15/packages/arduino/hardware/avr/[yourversion]/boards.txt``` and change the values of lines ```micro.build.vid``` and ```micro.build.pid``` and change ```micro.build.usb_product``` to your preferred name for the USB device. Restart the Arduino IDE and upload the sketch again.
 
 ## Resources
 - 3D modeling using [Tinkercad](https://www.tinkercad.com)
