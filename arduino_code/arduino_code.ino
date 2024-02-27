@@ -31,34 +31,29 @@ void setup() {
 bool active[3][5] = {{false, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false}};
 
 void loop() {
-  
-  
-  for (int i = 0; i < 50; i++)
-    Serial.println();
-
-  Serial.println("   | 1 | 2 | 3 | 4 | 5 |");
 
   //Row-wise outputs
   for (int i = 14; i < 17; i++) {
     digitalWrite(i,LOW);
-    Serial.print("r"); Serial.print(i-13); Serial.print(" | ");
     //Col-wise reading
     for (int j = 5; j < 10; j++) {
-      Serial.print(digitalRead(j)); Serial.print(" | ");
       //Press if not already active
-      if (digitalRead(j) == LOW && !active[i][j]) {
-          active[i][j] = true;
-          Joystick.pressButton((i-14)*5 + (j-5)); //Buttons are values 0-14 so map occording to rows and cols
+      if (digitalRead(j) == LOW) {
+          if (!active[i][j]) {
+            active[i][j] = true;
+            Joystick.pressButton((i-14)*5 + (j-5)); //Buttons are values 0-14 so map occording to rows and cols
+          }
+          
       } else { //deactivate and release
         active[i][j] = false;
         Joystick.releaseButton((i-14)*5 + (j-5));
       }
     }
-    Serial.println();
     digitalWrite(i,HIGH);
   }
 
   Joystick.sendState();
 
-  delay(300);
+
+  delay(100);
 }
