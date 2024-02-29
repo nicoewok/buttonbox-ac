@@ -43,12 +43,12 @@ void loop() {
             active[i][j] = true;
             Joystick.pressButton((i-14)*5 + (j-5)); //Buttons are values 0-14 so map occording to rows and cols
           }
-          
       } else { //deactivate and release
         active[i][j] = false;
         Joystick.releaseButton((i-14)*5 + (j-5));
       }
     }
+    //reset write
     digitalWrite(i,HIGH);
   }
 
